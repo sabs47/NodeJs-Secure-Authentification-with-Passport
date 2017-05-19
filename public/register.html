@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ivh-treeview with material design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  
+  <link rel='stylesheet prefetch' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.css'>
+<link rel='stylesheet prefetch' href='https://material.angularjs.org/1.0.5/docs.css'>
+<link rel='stylesheet prefetch' href='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview.css'>
+<link rel='stylesheet prefetch' href='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview-theme-basic.css'>
+
+  
+  
+</head>
+
+<body>
+  <html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+
+</head>
+<body ng-app="bin"> 
+  <div ng-controller="DemoCtrl as demo">
+  
+   <md-card style="width: 900px;height: 820px;float: center;margin: auto;">
+   <md-content>
+   <md-toolbar layout="row"  style=" background-color: #3f517f;">
+     <div class="md-toolbar-tools">
+      <img  src="facebunkerentete.jpg" style="width: 155px;height: 62px; margin-left: -18px;"/>
+      <img  src="add-user.png" style="width: 50px;height: 32px; margin-left: 80%;margin-top: 2%; "/>
+     
+      </div>
+    </md-toolbar>
+ <div layout="row">
+        <md-input-container flex="50" style=" float :left; padding-right: 60px;">
+          <label>First Name</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+ <md-input-container flex="50" style=" float :right; ">
+          <label>Rôle</label>
+          <md-select name="type" ng-model="project.type" required>
+            <md-option value="app">Docteur</md-option>
+            <md-option value="web">Patient</md-option>
+            <md-option value="web">Admin</md-option>
+          </md-select>
+        </md-input-container>
+
+</div><div layout="row" >
+        <md-input-container flex="50" style=" float :left; padding-right: 60px;">
+          <label>Last Name</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+<md-input-container flex="50">
+
+      <label>Password</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+</div>
+<div layout="row">
+<md-input-container flex="50"  style=" float :left; padding-right: 60px;">
+          <label>Call</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+<md-input-container flex="50">
+          <label>Username</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container><br>
+</div>
+<div layout="row">
+
+      <md-input-container flex="50"  style=" float :left; padding-right: 60px;" >
+        <label>Client Email</label>
+        <input required type="email" name="clientEmail" ng-model="project.clientEmail"
+               minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+        <div ng-messages="projectForm.clientEmail.$error" role="alert">
+          <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+            Your email must be between 10 and 100 characters long and look like an e-mail address.
+          </div>
+        </div>
+      </md-input-container>
+        
+<md-input-container flex="50">
+          <label>Confirm Password</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="projectForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+</div>
+
+<md-card style="width: 700px;height: 350px;float: center;margin: auto;" >
+<md-content>
+<md-toolbar style=" background-color: #3f517f;">
+     <img  src="facebunkerentete.jpg" style="width: 155px;height: 62px; margin-left:-2px; padding-right: "/>
+    
+     <img  src="cogwheel.png" style="width: 50px;height: 32px; margin-left: 92%;margin-top: -6%; "/>
+     
+    </md-toolbar ><br>
+    <div ivh-treeview="demo.stuff" >
+      <script type="text/ng-template">
+        <span ivh-treeview-toggle>
+          <span ivh-treeview-twistie></span>
+        </span>
+        <md-box></md-box>
+        <span class="ivh-treeview-node-label" ivh-treeview-toggle>
+          {{trvw.label(node)}}
+        </span>
+        <div ivh-treeview-children></div>
+      </script></div></md-content></md-card>
+     <!--  <md-button type="submit"> <img  src="thumbs-up.png" style="width: 50px;height: 32px; background-color: #3f517f; margin-left: 89%;margin-top: -6%; "/></md-button>
+      <md-button type="submit"> <img  src="stop.png" style="width: 50px;height: 32px; background-color: #3f517f; margin-left: 89%;margin-top: -6%; "/></md-button>
+      <md-button type="submit"> <img  src="reload.png" style="width: 50px;height: 32px;  background-color: #3f517f; margin-left: 89%;margin-top: -6%; "/></md-button>--></md-card></md-content>
+   </md-content>
+      <md-card>
+  </div>
+
+
+</body>
+</html>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-aria.min.js'></script>
+<script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.js'></script>
+<script src='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview.js'></script>
+<script src="/css/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<div class="bg-extended">
+
+    <div class="align-vertical-center">
+
+        <div class="container">
+    <div class="align-vertical-center" style="position: relative">
+ <md-card class="flogin">
+        <md-card-title>
+          <md-card-title-text>
+           <img  src="/facebunkerlogin.jpg" >
+            <md-divider ></md-divider>
+          </md-card-title-text>
+        </md-card-title>
+       
+          {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+          {{/if}}
+
+          {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+          {{/if}}
+
+          {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+          {{/if}}
+        <md-card-content layout="row"  layout-align="center">
+         
+  <form method="post" action="/users/login">
+  
+             <div class="form-group">
+                <div layout="row"><img class="passwordlogo" src="/user.PNG" >  
+               
+            <md-input-container >
+               <label>Identifiant</label>
+                <input name="username">
+            </md-input-container></div> </div> <div class="form-group"> <div layout="row"><img class="passwordlogo" src="/pin-code.PNG" > 
+                <md-input-container >
+                    <label>Mot de Passe</label>
+                    <input  type="password" name="password">
+                </md-input-container> </div>
+                    </div>
+               <!--  <div layout="row">
+                <md-input-container >
+                    <label>Username</label>
+                    <input>
+                </md-input-container>
+               <md-input-container >
+                    <label>Email</label>
+                    <input type="email">
+                </md-input-container>
+                    </div>
+                <div layout="row">
+                <md-input-container >
+                    <label>Password</label>
+                    <input type="password">
+                </md-input-container>
+                <md-input-container >
+                    <label>Repeat Password</label>
+                    <input type="password">
+                </md-input-container>
+                    </div>
+                -->
+            <md-card-actions>
+                    <md-button type="submit">
+                      <img src="/login.PNG"  class= "logbutton"></md-button>
+            </md-card-actions>
+                </form>
+
+
+          </md-card-content>
+          
+          </md-card>
+          </div>
+          </md-content>
+          </div>
+<!--<h2 class="page-header">Account Login</h2>
+<form method="post" action="/users/login">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" class="form-control" name="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>-->

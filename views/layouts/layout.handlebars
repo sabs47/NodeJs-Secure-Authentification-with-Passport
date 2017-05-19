@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--<link rel="stylesheet" href="/css/bootstrap.css" />-->
+	<link rel="stylesheet" href="/css/lib.min.css" />
+<head>
+  
+  <link rel='stylesheet prefetch' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-aria.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src="http://cdn.rawgit.com/angular/bower-material/v0.10.0/angular-material.js"></script>
+
+<link rel="stylesheet" href="http://cdn.rawgit.com/angular/bower-material/v0.10.0/angular-material.css"/>
+<script src='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview.js'></script>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+<link rel='stylesheet prefetch' href='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview.css'>
+<link rel='stylesheet prefetch' href='http://rawgit.com/iVantage/angular-ivh-treeview/master/dist/ivh-treeview-theme-basic.css'>
+<script src="/css/lib.min.js"></script>
+<script type="text/javascript">
+var stuff = [{
+  label: 'Administrator',
+  processusname : 'Administrator',
+  children: [
+    {label: 'Create User',
+    processusname:'Create User'},
+    {label: 'Edit password',
+    processusname:'Edit password'},
+    {label: 'Schelude',
+    processusname:'Schelude'}
+  ]
+},{
+  label: 'Patients',
+ processusname :  'Patients',
+  children: [
+    {label: 'Appointment',
+  processusname :'Appointment'
+    },
+    {label: 'Manage Patients',
+    processusname : 'Manage Patients'}
+  ]
+}];
+
+var app =  angular.module('cardDemo1', ['ngMaterial','ivh.treeview']);
+
+app.controller('AppCtrl', function($scope, $mdSidenav) {
+  $scope.showMobileMainHeader = true;
+   $scope.openSideNavPanel = function() {
+      $mdSidenav('left').open();
+   };
+   $scope.closeSideNavPanel = function() {
+      $mdSidenav('left').close();
+   };
+});
+  app.controller('dialogController', dialogController);
+  app.config(function(ivhTreeviewOptionsProvider) {
+ ivhTreeviewOptionsProvider.set({
+   defaultSelectedState: false,
+   validate: true,
+   expandToDepth: -1,
+   twistieCollapsedTpl: '<md-icon md-svg-icon="https://raw.githubusercontent.com/ankoh/mendeley-cache-client/master/app/assets/svg/material-icons/ic_chevron_right_black_24px.svg"></md-icon>',
+   twistieExpandedTpl: '<md-icon md-svg-icon="https://raw.githubusercontent.com/ankoh/mendeley-cache-client/master/app/assets/svg/material-icons/ic_expand_more_black_24px.svg"></md-icon>',
+   twistieLeafTpl: '<span style="cursor: default;">&#8192;&#8192;</span>'
+ });
+});
+
+
+app.controller('DemoCtrl', function($scope,$mdDialog,$http) {
+ this.stuff = stuff;
+  $scope.sit = [];
+  
+  $scope.users = [
+               { id: 1, name: 'Admin' },
+               { id: 2, name: 'Docteur' },
+               { id: 3, name: 'Patient' }
+            ];
+var i=0;
+var j=0;
+ 
+  $scope.init = function(){
+  
+   $scope.submitForm = function(addsal) {
+      
+          
+              
+           
+ //console.log(etudiantp)
+        /*    $http.post('http://localhost:8080/Application/role/add/',numerosalle,config)
+            .success(function (data) {
+              //  $scope.PostDataResponse = data;
+            console.log(data)
+            
+           // console.log(numerosalle)
+            
+            })
+            .error(function (data) {
+            });*/
+            
+ $scope.sit = angular.copy($scope.demo.stuff);
+angular.forEach($scope.sit, function(value, key){
+for(key=key;key<=value.children.length;key++)
+  {
+    
+  
+    if(value.children[key].selected==true){
+    
+     var numerosalle =  {"rolename":$scope.rolename,"processusname":value.children[key].processusname,"processusvalue":value.children[key].selected};
+    console.log($scope.rolename);
+   var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            }
+    
+    $http.post('/users/profil',numerosalle,config)
+            .success(function (data) {
+              //  $scope.PostDataResponse = data;
+          //  console.log(data)
+    });
+    //    console.log(value.children[key].processusname);
+
+
+}
+
+
+key++;
+
+}
+
+});
+ 
+   } }/*end*/
+   $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                     }
+});
+function dialogController ($scope, $mdDialog) {
+  
+          $scope.showAlert = function(ev) {
+           $mdDialog.show({
+          controller:'AppCtrl',
+           clickOutsideToClose: false,
+          template:
+         /*
+  '<div ng-controller="DemoCtrl as demo">'+
+
+         '<md-dialog  style= "background-color: #ddd">' +
+          '  <md-dialog-content>'+
+                     '<md-card  style="width: 900px;height: 620px;">'+         
+  
+     
+       
+'<md-tabs>'+
+    
+     '<md-tab label="Create profil">'+
+     
+     '<md-toolbar layout="row" style=" background-color: #3f517f" margin:auto;>'+
+     
+      ' <img  src="facebunkerentete.jpg" style="width: 155px;height: 62px;"/>' +
+    '  <img  src="add-user.png" style="width: 50px;height: 32px; margin-left: 75%;"/>' +
+  
+  
+    '</md-toolbar>'+
+    '<div>'+
+     ' <form class="login-form" ng-submit="submitForm(redit)"> '+
+     '<md-content class="md-padding">'+
+      '<div ivh-treeview="demo.stuff" >'+
+      
+     
+     
+'</div>'+
+ '<md-content>'+
+  ' </form> '+ 
+  '</div>'+
+  '</md-tab>'+
+  
+      '<md-tab label="Create User">'+
+        '<md-content class="md-padding">'+
+ '<md-toolbar layout="row" style=" background-color: #3f517f" margin:auto;>'+
+     
+      ' <img  src="facebunkerentete.jpg" style="width: 155px;height: 62px;"/>' +
+    '  <img  src="add-user.png" style="width: 50px;height: 32px; margin-left: 75%;"/>' +
+  
+  
+    '</md-toolbar>'+
+    
+        '</md-content>'+
+        '</md-tab>'+
+ '<md-tabs>'+
+         
+           '</div>'+  
+          
+        '  <md-dialog-actions>' +
+                             '    <md-button ng-click="closeDialog()" class="md-primary">' +
+                             '      Close' +
+                             '    </md-button>' +
+                             '  </md-dialog-actions>' +
+                          '</md-dialog>'+ '  </md-dialog-content>'   */
+        
+      
+     
+      
+          
+          
+        
+    /*
+ ' <md-card style="width: 900px;height: 820px; margin:auto;><md-content>'+
+   '<md-toolbar  style=" background-color: #3f517f" margin:auto; float:left;>' +
+    ' <div class="md-toolbar-tools">' +
+      
+     ' <img  src="facebunkerentete.jpg" style="width: 155px;height: 62px;"/>' +
+    '  <img  src="add-user.png" style="width: 50px;height: 32px; margin-left: 70%;"/>' +
+    
+     '  </div>' +
+  '   </md-toolbar>' +
+ ' <div layout="row">' +
+    '     <md-input-container flex="50" style=" float :left; padding-right: 60px;">'+
+   '        <label>First Name</label>' +
+    '       <input required name="clientName" ng-model="project.clientName">' +
+   '        <div ng-messages="projectForm.clientName.$error">' +
+    
+    '       </div>' +
+     '    </md-input-container>' +
+ ' <md-input-container flex="50">' +
+    '       <label>Rôle</label>' +
+     '      <md-select name="type" ng-model="project.type" required aria-label="Follow">' +
+      '       <md-option value="app">Docteur</md-option>' +
+      '       <md-option value="web2">Patient</md-option>' +
+      '       <md-option value="web">Admin</md-option>' +
+       '    </md-select>'+
+      '   </md-input-container>'+
+     '  </div><div layout="row" > '+
+       '  <md-input-container flex="50" style=" float :left; padding-right: 60px;"> '+
+       '    <label>Last Name</label> '+
+       '    <input required name="clientName" ng-model="project.clientName"> '+
+        '   <div ng-messages="projectForm.clientName.$error"> '+
+        
+        '   </div> '+
+       '  </md-input-container> '+
+ '<md-input-container flex="50"> '+
+
+   '    <label>Password</label> '+
+      '     <input required name="clientName" ng-model="project.clientName"> '+
+     '      <div ng-messages="projectForm.clientName.$error"> '+
+      
+       '    </div> '+
+      '   </md-input-container> '+
+ '</div> '+
+ '<div layout="row">'+
+'<md-input-container flex="50"  style=" float :left; padding-right: 60px;">'+
+       '   <label>Call</label>'+
+        '  <input required name="clientName" ng-model="project.clientName">'+
+        '  <div ng-messages="projectForm.clientName.$error">'+
+        
+         ' </div>'+
+       ' </md-input-container>'+
+
+'<md-input-container flex="50">'+
+ '         <label>Username</label>'+
+  '        <input required name="clientName" ng-model="project.clientName">'+
+   '       <div ng-messages="projectForm.clientName.$error">'+
+   
+     '     </div>'+
+      '  </md-input-container><br>'+
+'</div>'+
+     
+    ' <div layout="row">'+
+
+    '  <md-input-container flex="50"  style=" float :left; padding-right: 60px;" >'+
+     '   <label>Client Email</label>'+
+     '   <input required type="email" name="clientEmail" ng-model="project.clientEmail"'+
+    '           minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />'+
+
+    '    <div ng-messages="projectForm.clientEmail.$error" role="alert">'+
+     
+      '  </div>'+
+     ' </md-input-container>'+
+        
+'<md-input-container flex="50">'+
+   '       <label>Confirm Password</label>'+
+    '      <input required name="clientName" ng-model="project.clientName">'+
+     '     <div ng-messages="projectForm.clientName.$error">'+
+     
+      '    </div>'+
+      '</md-input-container>'+
+    '  </div>'+
+     '</md-content></md-card>'+  
+     */  
+
+          '<div ng-controller="DemoCtrl as demo">'+ 
+
+              '<md-dialog  style="width: 990px;height:520px; margin:auto; >' +
+                             '  <md-dialog-content>'+
+                      ' <md-card>'+         
+  
+  '<md-toolbar style=" background-color: #fff;">'+
+     '  <img  src="facebunkerlogin.jpg" style="width: 900px;height: 62px; margin-left:-2px; padding-right: "/>'+
+    '<md-divider></md-divider>'+
+       '<img  src="cogwheel.png" style="width: 50px;height: 32px; margin-left: 92%;margin-top: -6%; "/>'+
+    
+      '</md-toolbar >'+
+     ' <form method="post" ng-submit="submitForm(addsal)">'+
+      '<div layout="column" layout-align="left center">'+
+    '<md-select placeholder="selectioner Un Role" ng-model="user" style="min-width: 200px;">'+
+  '       <md-option value="app">Docteur</md-option>' +
+      '       <md-option value="web2">Patient</md-option>' +
+      '       <md-option value="web">Admin</md-option>' +
+    '</md-select>'+
+    '<br>'+
+    '<md-input-container>'+
+            '<label>User</label>'+
+            '<md-select ng-model="rolename">'+
+              '<md-option ng-value="user" ng-repeat="user in users">{{ user.name }}</md-option>'+
+            '</md-select>'+
+         '</md-input-container>'+
+     '<br>'+
+      '<div ivh-treeview="demo.stuff" ng-model="processusname" >'+
+     
+         
+'</div>'+'</div>'+
+ 
+  '<br>'+
+  '<br>'+
+  '<br>'+
+  '<br>'+
+ '<md-divider></md-divider>'+         
+   ' </md-dialog-content>' +
+       '  <md-dialog-actions>' +
+           '    <md-button  ng-click="init()" class="md-primary">' +
+                             '      register' +
+                            '</form>'+
+                             '    </md-button>' +
+                               '    <md-button ng-click="closeDialog()" class="md-primary">' +
+                             '      Clear' +
+                             '    </md-button>' +
+                             '    <md-button ng-click="closeDialog()" class="md-primary">' +
+                             '      Close' +
+                             '    </md-button>' +
+                             '  </md-dialog-actions> </md-card>'+ 
+                            
+      ' </div>',
+     
+      
+            } );
+              /* $mdDialog.show(
+                  $mdDialog.alert()
+                     .parent(angular.element(document.querySelector('#dialogContainer')))
+                     .clickOutsideToClose(true)
+                     .title(  '<md-content><form ng-submit="submitForm(addsal)" action="http://localhost:8080/Smartschelude/etudiant/edit"><md-input-container><label>Matricule :'+name[0]+'</label><input  type="text"  ng-model="id" ng-init="id='+name[0]+'" value="'+name[0]+'" ></md-input-container><md-input-container><label>'+name[2]+'</label><input  type="text" ng-model="name.nom"  ng-init="nom='+name[2]+'" name="nom" ng-value="'+name[2]+'"></md-input-container><br><md-input-container><label>Prenom : '+name[3]+'</label><input  type="text" ng-model="lastname"><br></br></md-input-container><md-input-container><label>Classe : '+name[4]+'</label><input  type="text" ng-model="classe"></md-input-container> <md-button type="submit" class="md-primary">Save</md-button></form></md-content>'
+          )
+                     .ok('Ok!')
+                     .targetEvent(ev)
+               );*/
+            };
+			
+			
+          
+         } 
+</script>
+<style type="text/css">
+.flogin{
+  width: 500px;
+  height: 382px;
+margin-left: 115px;  
+}
+.passwordlogo{
+  width: 52px;
+  height: 42px;
+  margin-top: 15px;
+}
+.alert alert-danger{
+  height: 25px;
+}
+.entetimg{
+  height: 50px;
+}
+.logbutton{
+  width: 50px;
+  margin-left: 300px;
+  margin: auto; 
+}
+.bg-extended {
+  position: fixed;
+  top: 0;
+  left: 0;
+ 
+  min-width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.align-vertical-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+.col-lg-121{
+  width:100px;
+  height:50px;
+  
+}
+.desktop{
+  background-color:  #3f517f;
+ }
+
+.md-sidenav-left{
+margin: auto;
+padding: auto;
+
+
+}
+
+.entet{
+
+}
+
+ .flogin{
+  width: 500px;
+  height: 482px;
+margin-left: 715px;  
+}
+.sidecolor{
+background-color:  #3f517f;
+
+}
+.bg-extended {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ddd;
+  min-width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.align-vertical-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+</style>
+</head>
+<body ng-app="cardDemo1" >
+	<div class="container" ng-controller="AppCtrl">
+     <!-- <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            {{#if user}}
+              <li role="presentation"><a href="/">Dashboard</a></li>
+              <li role="presentation"><a href="/users/logout">Logout</a></li>
+            {{else}}
+              <li role="presentation"><a href="/users/login">Login</a></li>
+              <li role="presentation"><a href="/users/register">Register</a></li>
+            {{/if}}
+          </ul>
+        </nav>
+      
+      </div>
+-->
+
+    
+          
+          {{{body}}}
+      
+<div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            {{#if user}}
+           
+              
+            {{else}}
+              <li role="presentation"><a href="/users/login">Login</a></li>
+              
+            {{/if}}
+          </ul>
+        </nav>
+      
+      </div>
+        
+      </div>
+
+     <!-- <footer class="footer">
+        <p>&copy; 2015 LoginApp, Inc.</p>
+      </footer>
+-->
+    </div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+      md-component-id="left" >
+   <md-toolbar layout="row" class="sidecolor">
+   <img class ="entet" src="facebunkerlogin.jpg" style="height: 40px;" >     
+      
+   </md-toolbar>   <md-divider></md-divider>
+   
+</md-sidenav>
+
+   <md-toolbar class="desktop">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Side Panel" ng-click="openSideNavPanel()">
+          <md-tooltip>Menu</md-tooltip>
+          <md-icon class="md-default-theme" class="material-icons">&#xE5D2;</md-icon>
+        </md-button>
+        
+       <span flex></span>
+          <ul id="nav">
+
+<!--<li id="notification_li">
+<md-button id="notificationLink" aria-label="User" href="#"><md-tooltip>User</md-tooltip>
+      </md-button>
+         -->  <div  ng-controller="dialogController">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+               <a href="javascript:void(0)" data-target="#"  data-toggle="dropdown">
+                   
+                        <img src="useri.png" style="width:44px;height:34px; margin-top: 12px;" />
+                        
+                    </a>
+                <ul class="dropdown-menu" ><li>
+                     <a ><img src="user.png" style="width:30px;height:20px; " />  {{ user.username}}</a></li>
+                    
+                     <li><a><img src="email.png" style="width:30px;height:20px; " /> {{ user.email}}</a></li>
+                   
+                   <md-divider></md-divider>
+                 
+                    <li><a  ng-click="showAlert($event)" flex="100"  flex-gt-md="auto">Create_Profile</a></li>
+                  
+                   <!-- <li><a href="/users/register">Create User </a></li>
+                    --><li><a href="/users/logout"><i class="glyphicon glyphicon-off"></i> Sign out</a></li>
+                </ul>
+            </li>
+        </ul></div></ul></div></md-toolbar>
